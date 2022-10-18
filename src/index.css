@@ -44,13 +44,13 @@ main {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
-  gap: 0 0;
   grid-auto-flow: row;
   grid-template-areas:
     '. . .'
     '. . .'
     '. . .';
   grid-area: main;
+  gap: 10px;
 }
 
 li {
@@ -69,4 +69,67 @@ footer {
 li:hover {
   border-bottom: 2px solid #333;
   font-weight: bold;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #333;
+  gap: 20px;
+}
+
+.cards p {
+  text-align: center;
+}
+
+.mealImg {
+  max-width: 100px;
+  max-height: 100px;
+}
+
+.comments {
+  border: 1px solid #000;
+  background: none;
+  cursor: pointer;
+}
+
+.popUp {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(51, 51, 51, 0.616);
+  backdrop-filter: blur(1px);
+}
+
+.popUpDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  min-height: 80%;
+  max-width: 900px;
+  background-color: #fff;
+  border-radius: 6px;
+}
+
+.popUpDiv > * {
+  padding: 20px;
+}
+
+.popUpDiv img {
+  width: 50%;
+  height: 50%;
+  max-width: 490px;
+  max-height: 490px;
+}
+
+.popUpDiv p {
+  text-align: center;
 }
