@@ -76,7 +76,6 @@ li:hover {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #333;
   gap: 20px;
 }
 
@@ -137,7 +136,7 @@ li:hover {
   text-align: center;
 }
 
-.popUp button {
+.buttonX {
   position: absolute;
   border: none;
   font-size: 30px;
@@ -148,7 +147,19 @@ li:hover {
   cursor: pointer;
 }
 
-.popUp button:hover {
+.buttonX:hover {
   color: red;
   transition-duration: 0.5s;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+form button {
+  background: none;
+  border: 1px solid #000;
+  cursor: pointer;
 }

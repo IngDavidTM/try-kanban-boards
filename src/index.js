@@ -33,8 +33,20 @@ const pop = async (index) => {
   div.appendChild(p3);
   const button = document.createElement('button');
   button.id = 'buttonX';
+  button.className = 'buttonX';
   button.innerHTML = '<i class="fa-solid fa-xmark" ></i>';
   div.appendChild(button);
+  const div1 = document.createElement('div');
+  div.appendChild(div1);
+  const h4 = document.createElement('h4');
+  h4.innerHTML = 'Comments';
+  div1.appendChild(h4);
+  const h4Add = document.createElement('h4');
+  h4Add.innerHTML = 'Add a comment';
+  div.appendChild(h4Add);
+  const form = document.createElement('form');
+  form.innerHTML = '<input type="text" name="name"><textarea name="comment" id="textComment" cols="30" rows="10"></textarea><button type="submit">Comment</button>';
+  div.appendChild(form);
   button.addEventListener('click', () => {
     popSection.innerHTML = '';
   });
