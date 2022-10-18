@@ -134,6 +134,7 @@ li:hover {
 
 .popUpDiv p {
   text-align: center;
+  max-width: 80%;
 }
 
 .buttonX {
@@ -162,4 +163,24 @@ form button {
   background: none;
   border: 1px solid #000;
   cursor: pointer;
+}
+
+.commentsContainer {
+  background-color: #ccc;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  width: 70%;
+}
+
+.divComments {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 5px;
+}
+
+.divComments p {
+  text-align: left;
 }

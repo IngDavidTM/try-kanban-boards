@@ -3,6 +3,33 @@ import './index.css';
 const main = document.getElementById('main');
 const popSection = document.getElementById('popSection');
 
+const setComments = async (index) => {
+  const get = await fetch(`https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/JGerHk43c1Y5J5m1thia/comments?item_id=item${index}`);
+  const arr = await get.json();
+  const div = document.getElementById('divComments');
+  document.getElementById('divComments').innerHTML = '';
+  arr.forEach((element) => {
+    const p = document.createElement('p');
+    p.innerHTML = `${element.creation_date}  ${element.username}: ${element.comment}`;
+    div.appendChild(p);
+  });
+};
+
+const addComment = async (index, name, comment) => {
+  const post = await fetch('https://us-central1-involvement-api.cloudfunctions.net/capstoneApi/apps/JGerHk43c1Y5J5m1thia/comments', {
+    method: 'POST',
+    body: JSON.stringify({
+      item_id: `item${index}`,
+      username: name,
+      comment,
+    }),
+    headers: {
+      'Content-type': 'application/json; charset=UTF-8',
+    },
+  });
+  setComments(index);
+};
+
 const pop = async (index) => {
   const data = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
   const json = await data.json();
@@ -23,13 +50,13 @@ const pop = async (index) => {
   h3.innerHTML = meals[index].strMeal;
   div.appendChild(h3);
   const p1 = document.createElement('p');
-  p1.innerHTML = `Area: ${specificMeal.strArea}`;
+  p1.innerHTML = `<strong>Area:</strong> ${specificMeal.strArea}`;
   div.appendChild(p1);
   const p2 = document.createElement('p');
-  p2.innerHTML = `Category: ${specificMeal.strCategory}`;
+  p2.innerHTML = `<strong>Category:</strong> ${specificMeal.strCategory}`;
   div.appendChild(p2);
   const p3 = document.createElement('p');
-  p3.innerHTML = `${specificMeal.strInstructions}`;
+  p3.innerHTML = `<strong>Instructions:</strong> ${specificMeal.strInstructions}`;
   div.appendChild(p3);
   const button = document.createElement('button');
   button.id = 'buttonX';
@@ -37,19 +64,43 @@ const pop = async (index) => {
   button.innerHTML = '<i class="fa-solid fa-xmark" ></i>';
   div.appendChild(button);
   const div1 = document.createElement('div');
+  div1.className = 'commentsContainer';
   div.appendChild(div1);
   const h4 = document.createElement('h4');
   h4.innerHTML = 'Comments';
   div1.appendChild(h4);
+  const divComments = document.createElement('div');
+  divComments.id = 'divComments';
+  divComments.className = 'divComments';
+  div1.appendChild(divComments);
   const h4Add = document.createElement('h4');
   h4Add.innerHTML = 'Add a comment';
   div.appendChild(h4Add);
   const form = document.createElement('form');
-  form.innerHTML = '<input type="text" name="name"><textarea name="comment" id="textComment" cols="30" rows="10"></textarea><button type="submit">Comment</button>';
+  form.innerHTML = '<input type="text" name="name" id="nameF"><textarea name="comment" id="textComment" cols="30" rows="10"></textarea><button id="submit" type="submit">Comment</button>';
   div.appendChild(form);
   button.addEventListener('click', () => {
     popSection.innerHTML = '';
   });
+  const submit = document.getElementById('submit');
+  submit.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const nameF = document.getElementById('nameF').value;
+    const commentF = document.getElementById('textComment').value;
+    if (nameF !== '' && commentF !== '') {
+      document.getElementById('nameF').value = '';
+      document.getElementById('textComment').value = '';
+      addComment(index, nameF, commentF);
+    } else {
+      const error = document.createElement('p');
+      error.innerHTML = 'Please fill all the requirements';
+      setTimeout(() => {
+        error.remove();
+      }, 2000);
+      div.appendChild(error);
+    }
+  });
+  setComments(index);
 };
 
 const generate = (json) => {
