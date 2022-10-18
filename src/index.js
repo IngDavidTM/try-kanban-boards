@@ -1,6 +1,7 @@
 import './index.css';
 
 const main = document.getElementById('main');
+const popSection = document.getElementById('popSection');
 
 const pop = async (index) => {
   const data = await fetch('https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef');
@@ -11,7 +12,7 @@ const pop = async (index) => {
   const specificMeal = jsonMeal.meals[0];
   const section = document.createElement('section');
   section.className = 'popUp';
-  main.appendChild(section);
+  popSection.appendChild(section);
   const div = document.createElement('div');
   div.className = 'popUpDiv';
   section.appendChild(div);
@@ -22,15 +23,23 @@ const pop = async (index) => {
   h3.innerHTML = meals[index].strMeal;
   div.appendChild(h3);
   const p1 = document.createElement('p');
-  p1.innerHTML = `${specificMeal.strArea}`;
+  p1.innerHTML = `Area: ${specificMeal.strArea}`;
   div.appendChild(p1);
   const p2 = document.createElement('p');
-  p2.innerHTML = `${specificMeal.strCategory}`;
+  p2.innerHTML = `Category: ${specificMeal.strCategory}`;
   div.appendChild(p2);
   const p3 = document.createElement('p');
   p3.innerHTML = `${specificMeal.strInstructions}`;
   div.appendChild(p3);
+  const button = document.createElement('button');
+  button.id = 'buttonX';
+  button.innerHTML = '<i class="fa-solid fa-xmark" ></i>';
+  div.appendChild(button);
+  button.addEventListener('click', () => {
+    popSection.innerHTML = '';
+  });
 };
+
 const generate = (json) => {
   for (let i = 0; i < 9; i += 1) {
     const div = document.createElement('div');
